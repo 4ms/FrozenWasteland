@@ -423,8 +423,8 @@ struct ProbablyNoteIndian : Module {
 			actualProbability[i] = noteInitialProbability[i] * userProbability; 
         }
 
-		if( inputs[TRIGGER_INPUT].active ) {
-			if (clockTrigger.process(inputs[TRIGGER_INPUT].value) ) {		
+		if( inputs[TRIGGER_INPUT].isConnected() ) {
+			if (clockTrigger.process(inputs[TRIGGER_INPUT].getVoltage()) ) {		
 				float rnd = ((float) rand()/RAND_MAX);
 				if(inputs[EXTERNAL_RANDOM_INPUT].isConnected()) {
 					rnd = inputs[EXTERNAL_RANDOM_INPUT].getVoltage() / 10.0f;

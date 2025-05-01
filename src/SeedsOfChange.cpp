@@ -181,22 +181,22 @@ struct SeedsOfChange : Module {
 		lights[SEED_LOADED_LIGHT].value = seed == latest_seed;
 		lights[SEED_LOADED_LIGHT+1].value = seed != latest_seed;
 
-		if( inputs[CLOCK_INPUT].active ) {
-			if (clockTrigger.process(inputs[CLOCK_INPUT].value) ) {
+		if( inputs[CLOCK_INPUT].isConnected() ) {
+			if (clockTrigger.process(inputs[CLOCK_INPUT].getVoltage()) ) {
 				for (int i=0; i<NBOUT; i++) {
-					float mult=params[MULTIPLY_1_PARAM+i].value;
-					float off=params[OFFSET_1_PARAM+i].value;
-					if (inputs[MULTIPLY_1_INPUT + i].active) {
-						mult = mult + (inputs[MULTIPLY_1_INPUT + i].value / 10.0f * params[MULTIPLY_1_CV_ATTENUVERTER + i].value);
+					float mult=params[MULTIPLY_1_PARAM+i].getValue();
+					float off=params[OFFSET_1_PARAM+i].getValue();
+					if (inputs[MULTIPLY_1_INPUT + i].isConnected()) {
+						mult = mult + (inputs[MULTIPLY_1_INPUT + i].getVoltage() / 10.0f * params[MULTIPLY_1_CV_ATTENUVERTER + i].getValue());
 					}
 					mult = clamp(mult,0.0,10.0);
 					multiplyPercentage[i] = mult / 10.0;
-					if (inputs[OFFSET_1_INPUT + i].active) {
-						off = clamp(off + (inputs[OFFSET_1_INPUT + i].value * params[OFFSET_1_CV_ATTENUVERTER + i].value),-10.0f,10.0f);
+					if (inputs[OFFSET_1_INPUT + i].isConnected()) {
+						off = clamp(off + (inputs[OFFSET_1_INPUT + i].getVoltage() * params[OFFSET_1_CV_ATTENUVERTER + i].getValue()),-10.0f,10.0f);
 					}
 					offsetPercentage[i] = off/10.0;
 
-					float prob = clamp(params[GATE_PROBABILITY_1_PARAM + i].value + (inputs[GATE_PROBABILITY_1_INPUT + i].active ? inputs[GATE_PROBABILITY_1_INPUT + i].value / 10.0f * params[GATE_PROBABILITY_1_CV_ATTENUVERTER + i].value : 0.0),0.0f,1.0f);
+					float prob = clamp(params[GATE_PROBABILITY_1_PARAM + i].getValue() + (inputs[GATE_PROBABILITY_1_INPUT + i].isConnected() ? inputs[GATE_PROBABILITY_1_INPUT + i].getVoltage() / 10.0f * params[GATE_PROBABILITY_1_CV_ATTENUVERTER + i].getValue() : 0.0),0.0f,1.0f);
 					probabilityPercentage[i] = prob;
 
 					float initialRandomNumber = gaussianMode ? normal_number() : genrand_real();					
@@ -220,12 +220,12 @@ struct SeedsOfChange : Module {
 			if(gateMode[i]) { // True is trigger mode
 				gateValue = gatePulse[i].process(1.0 / args.sampleRate) ? 10.0 : 0;
 			} else {
-				gateValue = outbuffer[i+NBOUT] ? inputs[CLOCK_INPUT].value : 0;;
+				gateValue = outbuffer[i+NBOUT] ? inputs[CLOCK_INPUT].getVoltage() : 0;;
 			}
 
 
-			outputs[CV_1_OUTPUT+i].value = outbuffer[i];
-			outputs[GATE_1_OUTPUT+i].value = gateValue;
+			outputs[CV_1_OUTPUT+i].setVoltage(outbuffer[i]);
+			outputs[GATE_1_OUTPUT+i].setVoltage(gateValue);
 		}	
 
 		//Set Expander Info

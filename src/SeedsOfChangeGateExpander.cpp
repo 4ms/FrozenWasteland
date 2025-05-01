@@ -149,7 +149,7 @@ struct SeedsOfChangeGateExpander : Module {
 
 		if (clockTrigger.process(clockInput)) {
 			for (int i=0; i<NBOUT; i++) {
-				float prob = clamp(params[GATE_PROBABILITY_1_PARAM + i].value + (inputs[GATE_PROBABILITY_1_INPUT + i].active ? inputs[GATE_PROBABILITY_1_INPUT + i].value / 10.0f * params[GATE_PROBABILITY_1_CV_ATTENUVERTER + i].value : 0.0),0.0f,1.0f);
+				float prob = clamp(params[GATE_PROBABILITY_1_PARAM + i].getValue() + (inputs[GATE_PROBABILITY_1_INPUT + i].isConnected() ? inputs[GATE_PROBABILITY_1_INPUT + i].getVoltage() / 10.0f * params[GATE_PROBABILITY_1_CV_ATTENUVERTER + i].getValue() : 0.0),0.0f,1.0f);
 				probabilityPercentage[i] = prob;
 				outbuffer[i] = genrand_real() < prob ? 10.0 : 0;
 				if(outbuffer[i]) {
@@ -171,7 +171,7 @@ struct SeedsOfChangeGateExpander : Module {
 				gateValue = outbuffer[i] ? clockInput : 0;;
 			}
 
-			outputs[GATE_1_OUTPUT+i].value = gateValue;
+			outputs[GATE_1_OUTPUT+i].setVoltage(gateValue);
 		}								
 	}
 

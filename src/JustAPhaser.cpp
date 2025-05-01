@@ -317,14 +317,14 @@ struct JustAPhaser : Module {
 		feedbackAmountPercentage = feedbackAmount;
 
 		// directInput[0] = inputs[IN_L_IN].getVoltage()/5.0 + (feedbackIn[0] * feedbackAmount);
-		// if(inputs[IN_R_IN].active) {
+		// if(inputs[IN_R_IN].isConnected()) {
 		// 	directInput[1] = inputs[IN_R_IN].getVoltage()/5.0 + (feedbackIn[1] * feedbackAmount);
 		// } else {
 		// 	directInput[1] = inputs[IN_L_IN].getVoltage()/5.0 + (feedbackIn[1] * feedbackAmount);
 		// }
 
 		directInput[0] = inputs[IN_L_IN].getVoltage()/5.0;
-		if(inputs[IN_R_IN].active) {
+		if(inputs[IN_R_IN].isConnected()) {
 			directInput[1] = inputs[IN_R_IN].getVoltage()/5.0;
 		} else {
 			directInput[1] = inputs[IN_L_IN].getVoltage()/5.0;
@@ -368,7 +368,7 @@ struct JustAPhaser : Module {
 		stereoPhasePercentage = steroPhase;
 		for(int c=0;c<MAX_CHANNELS;c++) {
 			float lfoValue = 0.0;
-			if (inputs[EXTERNAL_MOD_INPUT_L+c].active) {
+			if (inputs[EXTERNAL_MOD_INPUT_L+c].isConnected()) {
 				lfoValue = (inputs[EXTERNAL_MOD_INPUT_L+c].getVoltage() / 5.0) - 1.0;
 			} else {
 				switch(waveShape) {
@@ -408,7 +408,7 @@ struct JustAPhaser : Module {
 			feedbackOut[c] = phaseOut;
 			outputs[FB_OUT_L_OUTPUT + c].setVoltage(phaseOut * 5);
 			
-			if(inputs[FB_IN_L_IN+c].active) 
+			if(inputs[FB_IN_L_IN+c].isConnected()) 
 				feedbackIn[c] = inputs[FB_IN_L_IN+c].getVoltage() / 5.0;
 			else 
 				feedbackIn[c] = feedbackOut[c];

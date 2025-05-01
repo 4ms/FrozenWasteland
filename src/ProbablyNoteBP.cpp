@@ -769,7 +769,7 @@ struct ProbablyNoteBP : Module {
 		float randomRange = clamp(params[PITCH_RANDOMNESS_PARAM].getValue() + (inputs[PITCH_RANDOMNESS_INPUT].getVoltage() * params[PITCH_RANDOMNESS_CV_ATTENUVERTER_PARAM].getValue()),0.0,10.0);
 		pitchRandomnessPercentage = randomRange / 10.0;
 
-		if( inputs[TRIGGER_INPUT].active ) {
+		if( inputs[TRIGGER_INPUT].isConnected() ) {
 			bool triggerFired = false;
 
 			for(int channel=0;channel<currentPolyphony;channel++) {

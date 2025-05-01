@@ -239,9 +239,9 @@ struct DrunkenRampage : Module {
 		outputs[MIN_OUTPUT].setVoltage(std::min(a, b));
 		outputs[MAX_OUTPUT].setVoltage(std::max(a, b));
 		// Lights
-		lights[COMPARATOR_LIGHT].setSmoothBrightness(outputs[COMPARATOR_OUTPUT].value / 10.0, args.sampleTime);
-		lights[MIN_LIGHT].setSmoothBrightness(outputs[MIN_OUTPUT].value / 10.0, args.sampleTime);
-		lights[MAX_LIGHT].setSmoothBrightness(outputs[MAX_OUTPUT].value / 10.0, args.sampleTime);
+		lights[COMPARATOR_LIGHT].setSmoothBrightness(outputs[COMPARATOR_OUTPUT].getVoltage() / 10.0, args.sampleTime);
+		lights[MIN_LIGHT].setSmoothBrightness(outputs[MIN_OUTPUT].getVoltage() / 10.0, args.sampleTime);
+		lights[MAX_LIGHT].setSmoothBrightness(outputs[MAX_OUTPUT].getVoltage() / 10.0, args.sampleTime);
 	}
 };
 

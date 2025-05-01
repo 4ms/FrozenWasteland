@@ -117,15 +117,15 @@ struct SeedsOfChangeCVExpander : Module {
 
 		if (clockTrigger.process(clockInput)) {
 			for (int i=0; i<NBOUT; i++) {
-				float mult=params[MULTIPLY_1_PARAM+i].value;
-				float off=params[OFFSET_1_PARAM+i].value;
-				if (inputs[MULTIPLY_1_INPUT + i].active) {
-					mult = mult + (inputs[MULTIPLY_1_INPUT + i].value / 10.0f * params[MULTIPLY_1_CV_ATTENUVERTER + i].value);
+				float mult=params[MULTIPLY_1_PARAM+i].getValue();
+				float off=params[OFFSET_1_PARAM+i].getValue();
+				if (inputs[MULTIPLY_1_INPUT + i].isConnected()) {
+					mult = mult + (inputs[MULTIPLY_1_INPUT + i].getVoltage() / 10.0f * params[MULTIPLY_1_CV_ATTENUVERTER + i].getValue());
 				}
 				mult = clamp(mult,0.0,10.0);
 				multiplyPercentage[i] = mult / 10.0;
-				if (inputs[OFFSET_1_INPUT + i].active) {
-					off = clamp(off + (inputs[OFFSET_1_INPUT + i].value * params[OFFSET_1_CV_ATTENUVERTER + i].value),-10.0f,10.0f);
+				if (inputs[OFFSET_1_INPUT + i].isConnected()) {
+					off = clamp(off + (inputs[OFFSET_1_INPUT + i].getVoltage() * params[OFFSET_1_CV_ATTENUVERTER + i].getValue()),-10.0f,10.0f);
 				}
 				offsetPercentage[i] = off / 10.0f;
 
@@ -136,7 +136,7 @@ struct SeedsOfChangeCVExpander : Module {
 		} 
 
 		for (int i=0; i<NBOUT; i++) {
-			outputs[CV_1_OUTPUT+i].value = outbuffer[i];			
+			outputs[CV_1_OUTPUT+i].setVoltage(outbuffer[i]);
 		}								
 	}
 

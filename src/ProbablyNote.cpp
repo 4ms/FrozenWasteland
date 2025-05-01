@@ -947,7 +947,7 @@ struct ProbablyNote : Module {
 		pitchRandomnessPercentage = randomRange / 10.0;
 
 
-		if( inputs[TRIGGER_INPUT].active ) {
+		if( inputs[TRIGGER_INPUT].isConnected() ) {
 			bool triggerFired = false;
 			for(int channel=0;channel<currentPolyphony;channel++) {
 				float currentTriggerInput = inputs[TRIGGER_INPUT].getVoltage(channel);

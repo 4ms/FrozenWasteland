@@ -1200,7 +1200,7 @@ struct ProbablyNoteArabic : Module {
 		float randomRange = clamp(params[PITCH_RANDOMNESS_PARAM].getValue() + (inputs[PITCH_RANDOMNESS_INPUT].getVoltage() * params[PITCH_RANDOMNESS_CV_ATTENUVERTER_PARAM].getValue()),0.0,10.0);
 		pitchRandomnessPercentage = randomRange / 10.0;
 
-		if(inputs[TRIGGER_INPUT].active) {
+		if(inputs[TRIGGER_INPUT].isConnected()) {
 				// fprintf(stderr, "P(N) A Triggered Input Connected %i \n",triggerDelayIndex);
 
 			float currentTriggerInput = inputs[TRIGGER_INPUT].getVoltage();
