@@ -144,10 +144,11 @@ struct SeedsOfChangeCVExpander : Module {
 	// - dataToJson, dataFromJson: serialization of internal data
 	// - onSampleRateChange: event triggered by a change of sample rate
 	// - onReset, onRandomize: implements custom behavior requested by the user
-	void onReset() override;
+	void onReset(const ResetEvent& e) override;
+
 };
 
-void SeedsOfChangeCVExpander::onReset() {
+void SeedsOfChangeCVExpander::onReset(const ResetEvent &) {
 	for (int i=0; i<NBOUT; i++) {
 		outbuffer[i] = 0;		
 	}

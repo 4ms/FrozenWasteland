@@ -179,10 +179,10 @@ struct SeedsOfChangeGateExpander : Module {
 	// - dataToJson, dataFromJson: serialization of internal data
 	// - onSampleRateChange: event triggered by a change of sample rate
 	// - onReset, onRandomize: implements custom behavior requested by the user
-	void onReset() override;
+	void onReset(const ResetEvent& e) override;
 };
 
-void SeedsOfChangeGateExpander::onReset() {
+void SeedsOfChangeGateExpander::onReset(const ResetEvent& e) {
 	for (int i=0; i<NBOUT; i++) {
 		outbuffer[i] = 0;
 	}
