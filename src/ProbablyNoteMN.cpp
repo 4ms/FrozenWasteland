@@ -5,11 +5,11 @@
 #include "dsp-noise/noise.hpp"
 #include "model/ChristoffelWords.hpp"
 
-#include <sstream>
-#include <iomanip>
+// #include <sstream>
+// #include <iomanip>
 #include <time.h>
-#include <iostream>
-#include <fstream>
+// #include <iostream>
+// #include <fstream>
 #include <string>
 #include <vector>
 
@@ -1604,6 +1604,7 @@ struct ProbablyNoteMN : Module {
 			}
 		}
 
+#ifndef METAMODULE
 		std::ofstream scalefile;
 		scalefile.open (fileName);
 		scalefile << "Math Nerd Generated Scale File.\n";
@@ -1685,6 +1686,7 @@ struct ProbablyNoteMN : Module {
 		scalefile << std::to_string(octaveScaleConstant*1200.0);
 		scalefile << "\n";
 		scalefile.close();
+#endif
 	}
 
 	void process(const ProcessArgs &args) override {

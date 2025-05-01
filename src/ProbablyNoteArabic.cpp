@@ -4,12 +4,12 @@
 #include "ui/menu.hpp"
 #include "dsp-noise/noise.hpp"
 #include "osdialog.h"
-#include <sstream>
-#include <iomanip>
+// #include <sstream>
+// #include <iomanip>
 #include <time.h>
 
-#include <iostream>
-#include <fstream>
+// #include <iostream>
+// #include <fstream>
 #include <string>
 
 #define MAX_NOTES 12
