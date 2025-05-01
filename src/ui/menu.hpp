@@ -4,7 +4,7 @@
 #include "rack.hpp"
 
 
-struct OptionMenuItem : MenuItem {
+struct OptionMenuItem : rack::MenuItem {
 	std::function<bool()> _check;
 	std::function<void()> _set;
 
@@ -20,7 +20,7 @@ struct OptionMenuItem : MenuItem {
 	}
 
 	void step() override {
-		MenuItem::step();
+		rack::MenuItem::step();
 		rightText = _check() ? "✔" : "";
 	}
 };
@@ -31,7 +31,7 @@ struct BoolOptionMenuItem : OptionMenuItem {
 	{}
 };
 
-struct OptionsMenuItem : MenuItem {
+struct OptionsMenuItem : rack::MenuItem {
 	std::vector<OptionMenuItem> _items;
 
 	OptionsMenuItem(const char* label) {
@@ -43,13 +43,13 @@ struct OptionsMenuItem : MenuItem {
 		_items.push_back(item);
 	}
 
-	Menu* createChildMenu() override {
-		Menu* menu = new Menu;
+	rack::Menu* createChildMenu() override {
+		rack::Menu* menu = new rack::Menu;
 		for (const OptionMenuItem& item : _items) {
 			menu->addChild(new OptionMenuItem(item));
 		}
 		return menu;
 	}
 
-	static void addToMenu(OptionsMenuItem* item, Menu* menu);
+	static void addToMenu(OptionsMenuItem* item, rack::Menu* menu);
 };

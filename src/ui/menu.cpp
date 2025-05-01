@@ -3,7 +3,7 @@
 
 #define SUBMENUS 1
 
-void OptionsMenuItem::addToMenu(OptionsMenuItem* item, Menu* menu) {
+void OptionsMenuItem::addToMenu(OptionsMenuItem* item, rack::Menu* menu) {
 	// one way or another, this will cause item to eventually be deleted; call only one per item.
 #ifdef SUBMENUS
 	menu->addChild(item);
