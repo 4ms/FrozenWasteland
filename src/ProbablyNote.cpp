@@ -997,7 +997,7 @@ struct ProbablyNote : Module {
 							noteOk = noteActive[randomNote] || notesSearched >= MAX_NOTES;
 						} while(!noteOk);
 					}
-						fprintf(stderr, "probabillty:%f value:%f lastNote:%i rNote:%i\n",nonRepeat,repeatProbability,lastRandomNote[channel],randomNote);
+						//fprintf(stderr, "probabillty:%f value:%f lastNote:%i rNote:%i\n",nonRepeat,repeatProbability,lastRandomNote[channel],randomNote);
 					if(!urnNonRandomMode) {
 						lastRandomNote[channel][0] = randomNote; // for repeatability
 					} else {

@@ -2789,7 +2789,7 @@ struct ProbablyNoteMNDisplay : TransparentWidget {
 		nvgTextAlign(args.vg,NVG_ALIGN_RIGHT);
 		char text[128];
 		nvgFillColor(args.vg, nvgRGBA(0x4a, 0xc3, 0x27, 0xff));
-		snprintf(text, sizeof(text), "%llu", noteCount);
+		snprintf(text, sizeof(text), "%zu", noteCount);
 		nvgText(args.vg, pos.x, pos.y, text, NULL);
 	}
 
