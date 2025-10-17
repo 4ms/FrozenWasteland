@@ -14,6 +14,7 @@
 #include <vector>
 
 #include "osdialog.h"
+#include "filesystem/async_filebrowser.hh"
 
 
 #define POLYPHONY 16
@@ -3208,7 +3209,12 @@ struct ProbablyNoteMNWidget : ModuleWidget {
 		void onAction(const event::Action &e) override {
 			
 			osdialog_filters* filters = osdialog_filters_parse("Scale:scl");
+
+#if defined(METAMODULE)
+			async_osdialog_file(OSDIALOG_SAVE, nullptr, nullptr, filters, [this](char *filename) {
+#else
 			char *filename  = osdialog_file(OSDIALOG_SAVE, NULL, NULL, filters);        //////////dir.c_str(),
+#endif
 			if (filename) {
 
 				char *dot = strrchr(filename,'.');
@@ -3218,6 +3224,9 @@ struct ProbablyNoteMNWidget : ModuleWidget {
 				module->CreateScalaFile(filename);
 				free(filename);
 			}
+#if defined(METAMODULE)
+			});
+#endif
 			osdialog_filters_free(filters);
 		}
 	};

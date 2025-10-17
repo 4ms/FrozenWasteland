@@ -13,6 +13,8 @@
 #include <vector>
 
 #include "osdialog.h"
+#include "filesystem/async_filebrowser.hh"
+
 
 
 #define CHANNEL_COUNT 16
@@ -491,12 +493,19 @@ struct DrumMapItem : MenuItem {
 	MidiRecorder *mrm ;
 	void onAction(const event::Action &e) override {
 		
+#if defined(METAMODULE)
+		async_osdialog_file(OSDIALOG_OPEN, nullptr, nullptr, nullptr, [this](char *path) {
+#else
 		char *path = osdialog_file(OSDIALOG_OPEN, NULL, NULL, NULL);        //////////dir.c_str(),
+#endif
 		if (path) {
 			mrm->loadDrumMap(path);
 			mrm->drumMapFile = std::string(path);
 			free(path);
 		}
+#if defined(METAMODULE)
+			});
+#endif
 	}
 };
 
@@ -570,7 +579,11 @@ struct MidiRecorderWidget : ModuleWidget {
 		void onAction(const event::Action &e) override {
 			
 			osdialog_filters* filters = osdialog_filters_parse("MIDI File:mid");
+#if defined(METAMODULE)
+			async_osdialog_file(OSDIALOG_SAVE, nullptr, nullptr, filters, [this](char *filename) {
+#else
 			char *filename  = osdialog_file(OSDIALOG_SAVE, NULL, NULL, filters);        //////////dir.c_str(),
+#endif
 			if (filename) {
 
 				char *dot = strrchr(filename,'.');
@@ -580,6 +593,9 @@ struct MidiRecorderWidget : ModuleWidget {
                 module->CreateMidiFile(filename);
 				free(filename);
 			}
+#if defined(METAMODULE)
+			});
+#endif
 			osdialog_filters_free(filters);
 		}
 	};
