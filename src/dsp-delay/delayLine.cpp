@@ -1,6 +1,10 @@
 #include "frame.h"
 
+#ifdef METAMODULE
+#define DELAY_LINE_SIZE 1<<20
+#else
 #define DELAY_LINE_SIZE 1<<24
+#endif
 
 #define MAKE_INTEGRAL_FRACTIONAL(x) \
   int x ## _integral = static_cast<int32_t>(x); \
