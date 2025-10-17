@@ -13,7 +13,9 @@
 #include <vector>
 
 #include "osdialog.h"
+#if defined(METAMODULE)
 #include "filesystem/async_filebrowser.hh"
+#endif
 
 
 
