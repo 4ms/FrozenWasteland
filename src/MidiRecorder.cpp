@@ -7,8 +7,8 @@
 // #include <sstream>
 // #include <iomanip>
 #include <time.h>
-#include <iostream>
-#include <fstream>
+// #include <iostream>
+// #include <fstream>
 #include <string>
 #include <vector>
 
@@ -74,7 +74,10 @@ struct MidiRecorder : Module {
     float bpm;
     dsp::SchmittTrigger recordingTrigger;
     std::string fileName;
+#if defined(METAMODULE)
+#else
     std::ofstream midiFile;
+#endif
     std::string drumMapFile = "";
     bool useDrumMap = false;
 
@@ -196,6 +199,8 @@ struct MidiRecorder : Module {
     }
 
     void CreateMidiFile(std::string fileName) {	
+#if defined(METAMODULE)
+#else
 		// midiFile.open (fileName);
         std::ofstream midiFile(fileName, std::ios::binary | std::ios::out);
 
@@ -252,7 +257,7 @@ struct MidiRecorder : Module {
         }
 
 		midiFile.close();
-
+#endif
 	}
 
     json_t *dataToJson() override {
