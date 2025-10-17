@@ -6,7 +6,7 @@
 #include "StateVariableFilter.h"
 #include "dsp-compressor/SimpleComp.h"
 #include "dsp-compressor/SimpleGain.h"
-#include <iostream>
+//#include <iostream>
 #include <time.h>
 
 #define HISTORY_SIZE (1<<24)
