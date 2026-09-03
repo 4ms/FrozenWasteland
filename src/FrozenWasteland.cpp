@@ -16,9 +16,7 @@ void init(rack::Plugin *p) {
 	// For each module, specify the ModuleWidget subclass, manufacturer slug (for saving in patches), manufacturer human-readable name, module slug, and module name
 	p->addModel(modelBPMLFO);
 	p->addModel(modelBPMLFO2);
-#if !defined(METAMODULE)
 	p->addModel(modelBPMLFOPhaseExpander);
-#endif
 	p->addModel(modelDamianLillard);
 	p->addModel(modelDrunkenRampage);
 	p->addModel(modelEverlastingGlottalStopper);
@@ -42,15 +40,12 @@ void init(rack::Plugin *p) {
 	p->addModel(modelProbablyNoteArabic);
 	p->addModel(modelProbablyNoteBP);
 	p->addModel(modelProbablyNoteMN);
-#if !defined(METAMODULE)
 	p->addModel(modelPNChordExpander);
 	p->addModel(modelPNOctaveProbabilityExpander);
 	p->addModel(modelPWAlgorithmicExpander);
 	p->addModel(modelPWGridControlExpander);
 	p->addModel(modelPWTapBreakoutExpander);
-#endif
 	p->addModel(modelQuadAlgorithmicRhythm);
-#if !defined(METAMODULE)
 	p->addModel(modelQARConditionalExpander);
 	p->addModel(modelQARGridControlExpander);
 	p->addModel(modelQARGrooveExpander);
@@ -58,22 +53,17 @@ void init(rack::Plugin *p) {
 	p->addModel(modelQARProbabilityExpander);
 	p->addModel(modelQARWarpedSpaceExpander);
 	p->addModel(modelQARWellFormedRhythmExpander);
-#endif
 	p->addModel(modelQuantussyCell);
 	p->addModel(modelSeedsOfChange);
-#if !defined(METAMODULE)
 	p->addModel(modelSeedsOfChangeCVExpander);
 	p->addModel(modelSeedsOfChangeGateExpander);
-#endif
 	p->addModel(modelSliceOfLife);
 	p->addModel(modelStringTheory);
 	p->addModel(modelRouletteLFO);
 	p->addModel(modelSeriouslySlowEG);
 	p->addModel(modelSeriouslySlowLFO);
 	p->addModel(modelVoxInhumana);
-#if !defined(METAMODULE)
 	p->addModel(modelVoxInhumanaExpander);
-#endif
 	p->addModel(modelCDCSeriouslySlowLFO);
 
 
